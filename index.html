@@ -13,35 +13,16 @@
         <![endif]-->
         <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css">
  		<style type="text/css" media="screen">
- 			.hero-unit {
- 				height: 100%;
- 				min-height: 649px;
- 				padding: 60px;
- 				margin-bottom: 30px;
- 				font-size: 18px;
- 				font-weight: 200;
- 				line-height: 30px;
- 				text-align: center;
- 				vertical-align: middle;
- 				color: inherit;
- 				background-color: #eeeeee;
- 				-webkit-border-radius: 6px;
- 			   	-moz-border-radius: 6px;
- 			        	border-radius: 6px;
- 			}
- 		
- 			.hero-unit h1 {
- 				margin-bottom: 0;
- 				font-size: 60px;
- 				line-height: 1;
- 				letter-spacing: -1px;
- 				color: inherit;
- 			}
- 		
- 			.hero-unit li {
- 				line-height: 30px;
- 			}
-
+            .container {
+                background  : none repeat scroll 0 0 #FCFCFC;
+                border      : 1px solid #EEEEEE;
+                box-shadow  : 0 0 7px #EEEEEE;
+                margin      : 0 auto;
+                padding     : 20px;
+                width       : 1000px;  
+                min-height  : 705px;
+                height      : 100%;             
+            }
  			.table td {
  				text-align: left;
  			}
@@ -49,8 +30,11 @@
  			.table tr {
  				position: relative;
  			}
-            .table tbody tr:hover {
-                background: #F0E7CB;
+            .table tbody tr#inputs {
+                background: #5FB611;
+            }
+            .table tbody tr:hover, .highlight {
+                background: #ECFCDE;
             }
  			.table tr .close {
  				position: absolute;
@@ -63,6 +47,8 @@
                 font-size: 16px;
                 color: #09629E;
                 text-align: center;
+                width: 200px;
+                height: 50px;
             }
             .done, .cancel {
                 cursor: pointer;
@@ -80,9 +66,6 @@
             .delete {
                 color: red;
             }
-            .highlight {
-                background: #F0E7CB;
-            }
             #contacts header {
                 text-align: left;
             }
@@ -95,15 +78,40 @@
                 top: 70%;
                 left: 45%;
             }
+            #add_contact {
+                background: none repeat scroll 0 0 #C5C9C1;
+                color: #5FB611;
+                text-decoration: none;
+                transition: all 0.4s ease-in-out 0s;
+            }
+            .btn {
+                background: none repeat scroll 0 0 #72C02C;
+                border: 1px solid #5FB611;
+                color: #FFFFFF !important;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 14px;
+                padding: 5px 13px;
+                position: relative;
+                text-decoration: none !important;
+            }
+            div.header {
+                width: 100%;
+                margin-bottom: 10px;
+                border-bottom: 2px solid #5FB611;
+                padding: ;
+                position: relative;
+            }
+            #footer{clear:both;border-top:2px solid #e4e4e4;border-top:2px solid rgba(0,49,79,.08);padding:24px 0 10px}
  		</style>
     </head>
     <body>
-    	<div class="hero-unit">
-    		<div id="contacts" class="row">
-                <header>
-                   <span>Total number of contacts: <span class="count">0</span></span> 
-                </header>
-	    		<table class="table">
+    	<div class="container">
+            <div class="panel" id="contacts">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Contact Manager</h3>
+                </div>
+    			<table class="table">
 	    			<thead>
 						<tr>
 							<th>#</th>
@@ -115,29 +123,33 @@
     				</thead>
     				<tbody>
     					<tr id="inputs">
-    						<td><button id="add_contact" data-toggle="tooltip" title="Add contact">+</button></td>
+    						<td><button id="add_contact" class="btn" data-toggle="tooltip" title="Add contact" type="submit">+</button></td>
     						<td><input type="text" name="fullname"></td>
     						<td><input type="text" name="number"></td>
     						<td><input type="text" name="username"></td>
+                            <td></td>
     					</tr>
     				</tbody>
-	    		</table>
-	    	</div>
+	    		</table> 
+                <div id="footer">
+                    <h3 class="panel-title"> Total number of contacts: <span class="count">0</span></h3>
+                </div>        
+            </div>
     	</div>
     </body>
     <script type="text/template" id="contact_template">
-        <td><%= position %></td>
+        <td><span><%= position %></span></td>
         <td><%= name %></td>
         <td><%= number %></td>
         <td><%= username %></td>
-        <td class="controls"><a href="#" class="edit">Edit</a> | <a href="#" class="delete">Delete</a></td>
+        <td class="controls"><a href="#" class="edit">Edit</a>  | <a href="#" class="delete">Delete</a></td>
     </script>
     <script type="text/template" id="edit_mode_template">
         <td><%= position %></td>
         <td><input type="text" name="fullname" value="<%= name %>"></td>
         <td><input type="text" name="number" value="<%= number %>"></td>
         <td><input type="text" name="username" value="<%= username %>"></td>
-        <td class="confirmation"><span class="done">Done</span><span class="cancel">Cancel</span></td>
+        <td class="confirmation"><span class="done">Done</span> | <span class="cancel">Cancel</span></td>
     </script>
     <script type="text/template" id="contact_empty_template">
         <p>Hello! No contacts.</p>
