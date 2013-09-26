@@ -7,8 +7,8 @@ mongoose.connection.once('open', function () {
 	console.log('MongoDB connection opened.');
 });
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '));
-var options = require('./creds');
-mongoose.connect('mongodb://localhost:27017/test', options);
+//var options = require('./creds');
+mongoose.connect('mongodb://localhost:27017/test');//, options);
 
 var ContactSchema = new mongoose.Schema({
 	name: String,

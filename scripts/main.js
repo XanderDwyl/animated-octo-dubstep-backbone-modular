@@ -11,9 +11,14 @@
 			this.$input_name = $('#inputs input[name=fullname]');
 			this.$input_number = $('#inputs input[name=number]');
 			this.$input_username = $('#inputs input[name=username]');
+			this.$counter = $('span.count');
 			this.$contacts_list = $('.table tbody');
 
 			this.listenTo(this.collection, 'add', this.createView);
+
+			this.listenTo(this.collection, 'add remove', this.updateContactCounter);
+
+			this.listenTo(this.collection, 'remove', this.render);
 			// Fetch contacts from server
 			this.collection.fetch();
 		},
@@ -21,6 +26,9 @@
 			this.$input_name.val('');
 			this.$input_number.val('');
 			this.$input_username.val('');
+		},
+		updateContactCounter: function () {
+			this.$counter.text(this.collection.length);
 		},
 		addPerson: function (evt) {
 			var _this = this;
@@ -41,6 +49,7 @@
 			});
 		},
 		createView: function (model, collection) {
+
 			model.set('position', this.collection.models.indexOf(model) + 1);
 			var view = new PersonView({model: model});
 			this.$contacts_list.append(view.render().el);
